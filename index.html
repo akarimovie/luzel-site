@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luzel Entertainment</title>
+<meta name="description" content="Luzel Entertainment（ルゼル）— 光を、より多くの人へ。AIで制作する、踊り・歌い・語るアイドル総合レーベル。">
+<meta property="og:title" content="Luzel Entertainment">
+<meta property="og:description" content="光を、より多くの人へ。AIアイドル総合レーベル。">
+<meta property="og:image" content="assets/twin_hero.png">
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0f; --ink:#f4efe6; --muted:#c4bdad; --faint:#8a8474;
+    --gold:#d0aa55; --gold-soft:#c9a24b;
+    --line:rgba(244,239,230,.14); --line2:rgba(244,239,230,.08);
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;text-size-adjust:100%;-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.9;
+    font-feature-settings:"palt" 1;font-optical-sizing:auto;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;letter-spacing:.012em}
+  /* 日本語の見出しはカーニングを効かせて締める */
+  .mincho,.h2,.hero h1,.nm,.quote{font-feature-settings:"palt" 1}
+  h1,h2,h3,h4,.h2,.quote,.lead,.catch{text-wrap:balance}
+  p{text-wrap:pretty}
+  /* subtle film grain to kill flat-gradient AI feel */
+  body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .serif{font-family:"Cormorant Garamond",serif}
+  .mincho{font-family:"Shippori Mincho",serif}
+  .label{font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:500}
+  .idx{font-family:"Cormorant Garamond",serif;color:var(--gold-soft);font-size:15px;letter-spacing:.08em;opacity:.85}
+
+  /* ---------- nav ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:linear-gradient(180deg,rgba(11,11,15,.9),rgba(11,11,15,0));
+    backdrop-filter:blur(6px)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav .brand img{height:30px}
+  .nav nav{display:flex;gap:34px;font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:500}
+  .nav nav a{position:relative;text-transform:uppercase;transition:color .3s}
+  .nav nav a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .35s}
+  .nav nav a:hover{color:var(--ink)}
+  .nav nav a:hover::after{width:100%}
+  /* hamburger（スマホのみ表示） */
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;
+    width:30px;height:20px;position:relative;padding:0;z-index:60}
+  .menu-btn span{position:absolute;left:0;right:0;height:1.5px;background:var(--ink);
+    transition:transform .32s,opacity .25s}
+  .menu-btn span:nth-child(1){top:1px}
+  .menu-btn span:nth-child(2){top:9px}
+  .menu-btn span:nth-child(3){top:17px}
+  header.open .menu-btn span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  header.open .menu-btn span:nth-child(2){opacity:0}
+  header.open .menu-btn span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  @media(max-width:720px){
+    .menu-btn{display:block}
+    .nav nav{position:fixed;top:72px;left:0;right:0;flex-direction:column;gap:0;
+      background:rgba(8,8,12,.98);backdrop-filter:blur(12px);
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      transform:translateY(-14px);opacity:0;pointer-events:none;transition:.34s ease}
+    header.open .nav nav{transform:none;opacity:1;pointer-events:auto}
+    .nav nav a{padding:16px 32px;font-size:13px;letter-spacing:.14em;
+      border-bottom:1px solid var(--line2)}
+    .nav nav a:last-child{border-bottom:none}
+    .nav nav a::after{display:none}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+  .hero-l{display:flex;flex-direction:column;justify-content:center;padding:0 0 0 32px;
+    max-width:620px;margin-left:auto;width:100%}
+  .hero-l .wrapl{padding-right:48px}
+  .hero .label{margin-bottom:26px}
+  .hero h1{font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(66px,11vw,150px);line-height:.9;letter-spacing:.015em}
+  .hero .jp{font-family:"Shippori Mincho",serif;font-weight:600;
+    font-size:clamp(21px,3.4vw,31px);margin-top:26px;line-height:1.75;letter-spacing:.04em}
+  .hero .jp em{font-style:normal;color:var(--gold)}
+  .hero .catch{color:#d7d0c2;font-size:16.5px;line-height:2.05;margin-top:26px;max-width:466px}
+  .hero-r{position:relative;overflow:hidden;border-left:1px solid var(--line2)}
+  .hero-r img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;
+    filter:contrast(1.04) saturate(1.03)}
+  .hero-r::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,var(--bg),transparent 22%),
+               linear-gradient(0deg,var(--bg),transparent 30%)}
+  @media(max-width:860px){
+    .hero{grid-template-columns:1fr;min-height:auto}
+    .hero-r{height:62vh;order:-1;border-left:none}
+    .hero-r img{object-position:50% 18%}
+    .hero-l{padding:48px 32px;max-width:none}
+    .hero-l .wrapl{padding-right:0}
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;white-space:nowrap;padding:16px 0}
+  .marquee .track{display:inline-flex;align-items:center;animation:scroll 48s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  .marquee .item{display:inline-flex;align-items:center;gap:13px;padding:0 26px;
+    border-right:1px solid var(--line2)}
+  .marquee .item img{width:46px;height:46px;border-radius:50%;object-fit:cover;
+    object-position:50% 16%;border:1px solid var(--line);flex:none}
+  .marquee .item b{font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:21px;letter-spacing:.03em;color:var(--ink)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- section frame ---------- */
+  section{padding:130px 0;position:relative}
+  .head{display:flex;align-items:baseline;gap:22px;margin-bottom:14px}
+  .h2{font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:.005em}
+  .lead{color:var(--muted);max-width:560px;font-size:16.5px;line-height:2}
+
+  /* ---------- about ---------- */
+  .about{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+  .about .quote{font-family:"Shippori Mincho",serif;font-size:clamp(22px,2.6vw,30px);
+    line-height:1.95;font-weight:600;letter-spacing:.03em}
+  .about .quote em{font-style:normal;color:var(--gold)}
+  .about .body{color:#d4cdbf;font-size:16.5px;line-height:2.05}
+  .about .body p+p{margin-top:20px}
+  .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:74px;
+    border-top:1px solid var(--line)}
+  .principles .p{padding:30px 26px 30px 0;border-right:1px solid var(--line2)}
+  .principles .p:last-child{border-right:none}
+  .principles .p .n{font-family:"Cormorant Garamond",serif;font-size:30px;color:var(--gold)}
+  .principles .p h4{font-size:17.5px;margin:10px 0 11px;letter-spacing:.02em}
+  .principles .p p{color:var(--muted);font-size:15px;line-height:1.9}
+  @media(max-width:860px){.about{grid-template-columns:1fr;gap:34px}
+    .principles{grid-template-columns:1fr}.principles .p{border-right:none;border-bottom:1px solid var(--line2)}}
+
+  /* ---------- spotlight ---------- */
+  .spot{position:relative}
+  .spot .big{position:relative;border:1px solid var(--line);overflow:hidden}
+  .spot .big img{width:100%;height:min(70vh,640px);object-fit:cover;object-position:50% 16%;
+    filter:contrast(1.05)}
+  .spot .big .ov{position:absolute;inset:0;
+    background:linear-gradient(0deg,rgba(11,11,15,.92),transparent 45%),
+               linear-gradient(90deg,rgba(11,11,15,.5),transparent 40%)}
+  .spot .cap{position:absolute;left:34px;bottom:30px;right:34px}
+  .spot .cap .label{margin-bottom:10px}
+  .spot .cap h3{font-family:"Shippori Mincho",serif;font-weight:800;
+    font-size:clamp(36px,6vw,76px);line-height:1;letter-spacing:.06em}
+  .spot .cap .en{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,3vw,30px);
+    color:var(--gold);letter-spacing:.05em;margin-top:6px}
+  .members{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+  .member{display:flex;gap:20px;align-items:center;border:1px solid var(--line2);
+    padding:18px;transition:border-color .35s}
+  .member:hover{border-color:var(--line)}
+  .member img{width:96px;height:120px;object-fit:cover;object-position:50% 14%;
+    border:1px solid var(--line2);flex:none}
+  .member .nm{font-family:"Shippori Mincho",serif;font-size:24px;font-weight:700}
+  .member .ro{font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin:4px 0 10px}
+  .member .ds{font-size:14.5px;line-height:1.8;color:#cfc8ba}
+  @media(max-width:720px){.members{grid-template-columns:1fr}}
+
+  /* ---------- group bands (並び画) ---------- */
+  .groups{display:flex;flex-direction:column;gap:5px;margin-top:30px}
+  .gband{position:relative;overflow:hidden;border:1px solid var(--line2);background:#0d0d12;
+    display:block}
+  .gband img{width:100%;height:clamp(190px,27vw,320px);object-fit:cover;object-position:50% 20%;
+    transition:transform .7s cubic-bezier(.16,.7,.2,1);filter:contrast(1.03)}
+  .gband:hover img{transform:scale(1.035)}
+  .gband::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(11,11,15,.85),transparent 46%),
+               linear-gradient(0deg,rgba(11,11,15,.7),transparent 40%)}
+  .gband .gcap{position:absolute;left:clamp(20px,4vw,46px);bottom:24px;z-index:2;right:24px}
+  .gband .gcap .nm{font-family:"Shippori Mincho",serif;font-weight:800;
+    font-size:clamp(24px,4.4vw,48px);line-height:1;letter-spacing:.05em}
+  .gband .gcap .nm small{font-family:"Zen Kaku Gothic New";font-size:13px;color:var(--muted);
+    font-weight:400;letter-spacing:.1em;margin-left:14px}
+  .gband .gcap .cc{color:var(--gold);font-size:clamp(12px,1.6vw,15px);letter-spacing:.04em;margin-top:8px}
+  .gband .gcap .en{font-family:"Cormorant Garamond",serif;font-size:14px;color:var(--muted);
+    letter-spacing:.14em;text-transform:uppercase}
+  /* 集合画がまだ無いグループ＝上品な準備中バンド（枠ごと消さず縮退） */
+  .gband.soon,.gband.noimg{
+    background:radial-gradient(130% 130% at 0% 0%,rgba(208,170,85,.10),transparent 52%),
+      linear-gradient(180deg,#101017,#0b0b10);
+    min-height:clamp(132px,17vw,180px)}
+  .gband.soon img,.gband.noimg img{display:none}
+  .gband.soon::after,.gband.noimg::after{
+    background:linear-gradient(90deg,rgba(11,11,15,.55),transparent 62%)}
+  .gband.soon:hover,.gband.noimg:hover{border-color:rgba(208,170,85,.32)}
+  .gband .gtag{display:inline-block;margin-bottom:12px;font-size:10.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--gold);border:1px solid rgba(208,170,85,.42);
+    padding:5px 12px}
+
+  /* ---------- roster index ---------- */
+  .roster .head{margin-bottom:40px}
+  .rtable{border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:54px 1.3fr 1fr 90px;gap:18px;align-items:center;
+    padding:22px 6px;border-bottom:1px solid var(--line2);transition:.35s;cursor:default}
+  .row:hover{background:rgba(241,236,226,.025);padding-left:16px}
+  .row .nm{font-family:"Shippori Mincho",serif;font-size:clamp(20px,2.6vw,28px);font-weight:600}
+  .row .nm small{font-family:"Zen Kaku Gothic New";font-size:12px;color:var(--muted);
+    letter-spacing:.1em;margin-left:10px;font-weight:400}
+  .row .cc{color:#cfc8ba;font-size:15px}
+  .row .st{justify-self:end;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    padding:5px 11px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .row .st.live{color:var(--gold);border-color:rgba(201,162,75,.45)}
+  @media(max-width:720px){.row{grid-template-columns:36px 1fr;row-gap:4px}
+    .row .cc{grid-column:2}.row .st{grid-column:2;justify-self:start;margin-top:4px}}
+
+  /* ---------- solo ---------- */
+  .solos{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
+  .solo{position:relative;overflow:hidden;aspect-ratio:3/4;border:1px solid var(--line2);background:#000}
+  .solo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;
+    filter:grayscale(.35) contrast(1.03);transition:.6s}
+  .solo:hover img{filter:none;transform:scale(1.04)}
+  .solo .cap{position:absolute;left:14px;bottom:12px;right:12px;z-index:2}
+  .solo .cap .nm{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px}
+  .solo .cap .ro{font-size:10px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+  .solo::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg,rgba(11,11,15,.9),transparent 50%)}
+  @media(max-width:860px){.solos{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:520px){.solos{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- cta ---------- */
+  .cta{text-align:center;border-top:1px solid var(--line)}
+  .cta .h2{margin:0 auto 8px}
+  .cta .lead{margin:0 auto}
+  .links{display:flex;gap:14px;justify-content:center;margin-top:34px}
+  .lk{padding:13px 30px;border:1px solid var(--line);font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);transition:.35s}
+  .lk:hover{background:var(--ink);color:var(--bg)}
+  .lk.g{border-color:var(--gold);color:var(--gold)}
+  .lk.g:hover{background:var(--gold);color:var(--bg)}
+
+  footer{border-top:1px solid var(--line);padding:42px 0}
+  .fz{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center;
+    color:var(--faint);font-size:12px;letter-spacing:.08em}
+
+  /* ---------- stats band ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .stats .st{padding:34px 24px;border-right:1px solid var(--line2);text-align:center}
+  .stats .st:last-child{border-right:none}
+  .stats .st b{display:block;font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(40px,6vw,70px);line-height:1;color:var(--ink)}
+  .stats .st span{display:block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--gold);margin-top:12px}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}
+    .stats .st:nth-child(2){border-right:none}
+    .stats .st:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
+
+  /* ---------- services / 事業 ---------- */
+  .services{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;
+    border-top:1px solid var(--line)}
+  .svc{padding:36px 28px 42px 0;border-right:1px solid var(--line2);position:relative;
+    transition:transform .45s cubic-bezier(.16,.7,.2,1);display:block;color:inherit}
+  .svc:last-child{border-right:none;padding-right:0}
+  .svc .n{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--gold)}
+  .svc .en{font-family:"Cormorant Garamond",serif;font-size:25px;margin:16px 0 2px}
+  .svc h4{font-family:"Shippori Mincho",serif;font-size:18px;font-weight:700;margin-bottom:12px;letter-spacing:.03em}
+  .svc p{color:var(--muted);font-size:14.5px;line-height:1.9}
+  .svc .go{margin-top:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--faint);transition:color .35s}
+  .svc:hover{transform:translateY(-5px)}
+  .svc:hover .go{color:var(--gold)}
+  @media(max-width:860px){.services{grid-template-columns:1fr 1fr}
+    .svc{border-bottom:1px solid var(--line2);padding-right:22px}
+    .svc:nth-child(2n){border-right:none}}
+  @media(max-width:520px){.services{grid-template-columns:1fr}
+    .svc{border-right:none}}
+
+  /* ---------- founder / 代表 ---------- */
+  .founder{border-top:1px solid var(--line);display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:center}
+  .founder .who .label{margin-bottom:14px}
+  .founder .who .nm{font-family:"Shippori Mincho",serif;font-size:clamp(28px,4vw,46px);font-weight:700;line-height:1.1}
+  .founder .who .nm small{display:block;font-family:"Cormorant Garamond",serif;font-size:18px;color:var(--gold);
+    letter-spacing:.06em;margin-top:8px;font-weight:600}
+  .founder .msg{font-family:"Shippori Mincho",serif;font-size:clamp(18px,2.1vw,24px);line-height:2.05;font-weight:600;letter-spacing:.03em}
+  .founder .msg em{font-style:normal;color:var(--gold)}
+  .founder .msg .sign{display:block;margin-top:20px;font-family:"Cormorant Garamond",serif;font-size:15px;
+    letter-spacing:.1em;color:var(--muted)}
+  @media(max-width:860px){.founder{grid-template-columns:1fr;gap:28px}}
+
+  /* ---------- hero scroll cue ---------- */
+  .scrollcue{margin-top:42px;display:inline-flex;align-items:center;gap:13px;color:var(--faint);
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .scrollcue::before{content:"";width:48px;height:1px;background:var(--gold);display:inline-block;
+    animation:cue 2.4s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleX(.4);transform-origin:left;opacity:.5}
+    50%{transform:scaleX(1);transform-origin:left;opacity:1}}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.16,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* スマホ最終調整：間延び・窮屈さ・はみ出しを防ぐ */
+  @media(max-width:860px){section{padding:96px 0}}
+  @media(max-width:520px){
+    .wrap{padding:0 20px}
+    section{padding:78px 0}
+    .hero-l{padding:40px 20px}
+    .head{gap:14px;margin-bottom:18px}
+    .principles .p{padding:24px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{transition:none;opacity:1;transform:none}
+    .marquee .track{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/logo.svg" alt="Luzel Entertainment"></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#unit">Unit</a>
+      <a href="#groups">Groups</a>
+      <a href="#roster">Artists</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="メニュー" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top" style="padding:0">
+  <div class="hero-l">
+    <div class="wrapl">
+      <p class="label">Luzel Entertainment</p>
+      <h1>Luzel</h1>
+      <p class="jp mincho">光を、<em>より多くの人へ。</em></p>
+      <p class="catch">AIで制作しながら、誰よりも魅力的なキャラクターに、個性と声と人格を。踊り、歌い、語る——次世代のアイドル総合レーベル。</p>
+      <a href="#about" class="scrollcue">Scroll to explore</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <img src="assets/twin_hero.png" alt="T×win HeArts — 夜楼・夜璃">
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="mqtrack"></div>
+</div>
+<script>
+  // 名前＋写真チップを生成（写真が無いものは画像を自動で隠す）
+  const ROSTER=[
+    ["T×win HeArts","twin_hero"],["ネ遊","neasobi"],["幻","gen"],["Neon","neon"],
+    ["MAY","may"],["Lir","lir"],["Rabbit Flower","grp_rabbit_flower"],
+    ["fromage","grp_fromage"],["pale rain","grp_pale_rain"],
+    ["Colorful Chuing","grp_colorful_chuing"],["Poping ToNE","grp_poping_tone"],
+    ["+α","grp_plus_arufa"],["Zero ToNe","grp_zero_tone"],["Crown In dream","grp_crown_in_dream"]
+  ];
+  const mq=document.getElementById('mqtrack');
+  const chip=([nm,img])=>`<div class="item"><img src="assets/${img}.png" alt="" onerror="this.remove()"><b>${nm}</b></div>`;
+  mq.innerHTML=(ROSTER.map(chip).join(''))+(ROSTER.map(chip).join('')); // 2周分でシームレス
+</script>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="st reveal"><b data-count="14">0</b><span>Acts</span></div>
+  <div class="st reveal"><b data-count="41">0</b><span>Artists</span></div>
+  <div class="st reveal"><b data-count="9">0</b><span>Groups</span></div>
+  <div class="st reveal"><b>¥0</b><span>Always free</span></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">01</span><p class="label">About the label</p></div>
+    <div class="about">
+      <p class="quote reveal mincho">「Luzel」の名に込めたのは、ただひとつ。<em>luz</em> ——スペイン語・ポルトガル語で「<em>光</em>」。その光を、より多くの人へ。</p>
+      <div class="body reveal">
+        <p>不特定多数の人に楽しんでもらい、希望を届ける。あかりの書いた歌詞を、色んな人に。AIで制作しても、他の誰よりも魅力的なキャラクターをつくる。</p>
+        <p>TikTokライブを起点に、ファンとその場で繋がり、最終的には仮想空間でのライブへ。営利を目的とせず、楽曲も動画も無料で公開します。</p>
+        <p>最初からクリーンな状態でつくること。それを、何より優先します。</p>
+      </div>
+    </div>
+    <div class="principles">
+      <div class="p reveal"><div class="n serif">01</div><h4>AIで、本物の個性を</h4><p>AIツールのみで制作しながら、固有の声・人格・物語を宿す。近似ではなく、本物の魅力を。</p></div>
+      <div class="p reveal"><div class="n serif">02</div><h4>リアルタイムに交流</h4><p>TikTokライブを起点に、ファンとその場で繋がるアイドル。やがて仮想空間のライブへ。</p></div>
+      <div class="p reveal"><div class="n serif">03</div><h4>クリーンであること</h4><p>特定の誰かを参考にせず、商用利用条件を守った素材だけで世界をつくる。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / 事業 -->
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">02</span><p class="label">Services — 事業</p></div>
+    <h2 class="h2 reveal" style="margin-bottom:10px">What we do</h2>
+    <p class="lead reveal">キャラクターを“制作する”だけでなく、ライブ・楽曲・映像・ビジュアルまで一気通貫で届ける、AIネイティブの音楽事務所。</p>
+    <div class="services">
+      <a class="svc reveal" href="#unit">
+        <div class="n serif">01</div>
+        <p class="en serif">Virtual Live</p>
+        <h4>バーチャルライブ</h4>
+        <p>リアルタイム3Dステージでの公演。TikTokライブを起点に、やがて仮想空間の大規模ライブへ。</p>
+        <p class="go">体験する →</p>
+      </a>
+      <div class="svc reveal">
+        <div class="n serif">02</div>
+        <p class="en serif">Music</p>
+        <h4>作曲・楽曲提供</h4>
+        <p>あかりの作詞を軸にオリジナル楽曲を制作。アーティストへの提供・タイアップにも。</p>
+        <p class="go">Songwriting</p>
+      </div>
+      <div class="svc reveal">
+        <div class="n serif">03</div>
+        <p class="en serif">Visual</p>
+        <h4>AIイラスト生成</h4>
+        <p>キャラ・キービジュアル・差分をAIで制作。クリーンな素材だけで世界観を構築する。</p>
+        <p class="go">Character design</p>
+      </div>
+      <div class="svc reveal">
+        <div class="n serif">04</div>
+        <p class="en serif">Film</p>
+        <h4>MV・SNS展開</h4>
+        <p>ミュージックビデオ制作とTikTokショートの企画・編集。SNSから新しい光を広げる。</p>
+        <p class="go">MV · TikTok</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section id="unit">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">03</span><p class="label">Featured unit / Phase 1</p></div>
+    <div class="spot">
+      <div class="big reveal">
+        <img src="assets/twin_lineup.png" alt="T×win HeArts 並び画">
+        <div class="ov"></div>
+        <div class="cap">
+          <p class="label">魅惑する双子</p>
+          <h3 class="mincho">T×win HeArts</h3>
+          <p class="en serif">夜楼 &amp; 夜璃 — Yoru &amp; Yori</p>
+        </div>
+      </div>
+      <div class="members">
+        <div class="member reveal">
+          <img src="assets/yoru_smile.png" alt="夜楼">
+          <div>
+            <p class="nm mincho">夜楼 <small>ヨル・兄</small></p>
+            <p class="ro">Butterfly / Midnight</p>
+            <p class="ds">低く魅惑する歌声。扇子の奥に本音を隠す、冷静沈着なミステリアス。裏では弟を静かに守っている。</p>
+          </div>
+        </div>
+        <div class="member reveal">
+          <img src="assets/yori_bust.png" alt="夜璃">
+          <div>
+            <p class="nm mincho">夜璃 <small>ヨリ・弟</small></p>
+            <p class="ro">Night Sakura / Moon</p>
+            <p class="ds">透き通る声。明るくお調子者だが芯は一途。ふとした瞬間に覗く、強い独占欲と切なさ。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUPS (並び画) -->
+<section id="groups">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">04</span><p class="label">Groups — 並び画</p></div>
+    <h2 class="h2 reveal" style="margin-bottom:8px">Groups</h2>
+    <div class="groups">
+      <a class="gband soon reveal"><div class="gcap"><span class="gtag">Coming soon</span><p class="nm mincho">Rabbit Flower <small>女性・3</small></p><p class="cc">絶対君主 — 王者・気高さ</p></div></a>
+      <a class="gband soon reveal"><div class="gcap"><span class="gtag">Coming soon</span><p class="nm mincho">fromage <small>女性・3</small></p><p class="cc">クールビューティ — 中性的な美</p></div></a>
+      <a class="gband soon reveal"><div class="gcap"><span class="gtag">Coming soon</span><p class="nm mincho">pale rain <small>男性・3</small></p><p class="cc">枯愛 — 儚さ・喪失の美</p></div></a>
+      <a class="gband reveal"><img src="assets/grp_colorful_chuing.png" alt="Colorful Chuing" onerror="this.closest('.gband').classList.add('noimg');this.remove()"><div class="gcap"><p class="en">5 members</p><p class="nm mincho">Colorful Chuing</p><p class="cc">デザート・めるへん — カワイイ系</p></div></a>
+      <a class="gband reveal"><img src="assets/grp_poping_tone.png" alt="Poping ToNE" onerror="this.closest('.gband').classList.add('noimg');this.remove()"><div class="gcap"><p class="en">4 members</p><p class="nm mincho">Poping ToNE</p><p class="cc">青春</p></div></a>
+      <a class="gband reveal"><img src="assets/grp_plus_arufa.png" alt="plus ARuFa" onerror="this.closest('.gband').classList.add('noimg');this.remove()"><div class="gcap"><p class="en">6 members</p><p class="nm mincho">+α <small>plus ARuFa</small></p><p class="cc">パフォーマンス — 歌・ダンス分業</p></div></a>
+      <a class="gband reveal"><img src="assets/grp_zero_tone.png" alt="Zero ToNe" onerror="this.closest('.gband').classList.add('noimg');this.remove()"><div class="gcap"><p class="en">4 members</p><p class="nm mincho">Zero ToNe</p><p class="cc">宣戦布告 — ラッパー系</p></div></a>
+      <a class="gband reveal"><img src="assets/grp_crown_in_dream.png" alt="Crown In dream" onerror="this.closest('.gband').classList.add('noimg');this.remove()"><div class="gcap"><p class="en">6 members</p><p class="nm mincho">Crown In dream</p><p class="cc">夢の国 — おとぎ話系</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ROSTER -->
+<section class="roster" id="roster">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">05</span><p class="label">Full roster — 41 artists</p></div>
+    <h2 class="h2 reveal" style="margin-bottom:34px">Roster</h2>
+    <div class="rtable">
+      <div class="row reveal"><span class="idx">U1</span><span class="nm mincho">T×win HeArts <small>男性・2</small></span><span class="cc">魅惑する双子</span><span class="st live">Phase 1</span></div>
+      <div class="row reveal"><span class="idx">G1</span><span class="nm">Rabbit Flower <small>女性・3</small></span><span class="cc">絶対君主 — 王者・気高さ</span><span class="st">制作準備</span></div>
+      <div class="row reveal"><span class="idx">G2</span><span class="nm">fromage <small>女性・3</small></span><span class="cc">クールビューティ — 中性的な美</span><span class="st">制作準備</span></div>
+      <div class="row reveal"><span class="idx">G3</span><span class="nm">pale rain <small>男性・3</small></span><span class="cc">枯愛 — 儚さ・喪失の美</span><span class="st">制作準備</span></div>
+      <div class="row reveal"><span class="idx">G4</span><span class="nm">Colorful Chuing <small>女性・5</small></span><span class="cc">デザート・めるへん（カワイイ系）</span><span class="st">構想</span></div>
+      <div class="row reveal"><span class="idx">G5</span><span class="nm">Poping ToNE <small>女性・4</small></span><span class="cc">青春</span><span class="st">構想</span></div>
+      <div class="row reveal"><span class="idx">G6</span><span class="nm">+α <small>男性・6</small></span><span class="cc">パフォーマンス（歌・ダンス分業）</span><span class="st">構想</span></div>
+      <div class="row reveal"><span class="idx">G7</span><span class="nm">Zero ToNe <small>男性・4</small></span><span class="cc">宣戦布告（ラッパー系）</span><span class="st">構想</span></div>
+      <div class="row reveal"><span class="idx">G8</span><span class="nm">Crown In dream <small>男女・6</small></span><span class="cc">夢の国（おとぎ話系）</span><span class="st">構想</span></div>
+      <div class="row reveal"><span class="idx">G9</span><span class="nm">EtiNceler <small>男性・5</small></span><span class="cc">近未来ネオン（唯一のリアル人間）</span><span class="st">別軸</span></div>
+    </div>
+
+    <div class="head reveal" style="margin:74px 0 8px"><span class="idx">06</span><p class="label">Solo artists</p></div>
+    <div class="solos">
+      <a class="solo reveal"><img src="assets/neasobi.png" alt="ネ遊"><div class="cap"><p class="ro">Acoustic</p><p class="nm mincho">ネ遊</p></div></a>
+      <a class="solo reveal"><img src="assets/gen.png" alt="幻"><div class="cap"><p class="ro">Vocalist</p><p class="nm mincho">幻</p></div></a>
+      <a class="solo reveal"><img src="assets/neon.png" alt="Neon"><div class="cap"><p class="ro">Rapper</p><p class="nm">Neon</p></div></a>
+      <a class="solo reveal"><img src="assets/may.png" alt="MAY"><div class="cap"><p class="ro">Rapper</p><p class="nm">MAY</p></div></a>
+      <a class="solo reveal"><img src="assets/lir.png" alt="Lir"><div class="cap"><p class="ro">Androgynous</p><p class="nm">Lir</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER / 代表 -->
+<section id="founder">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">07</span><p class="label">Founder — 代表</p></div>
+    <div class="founder">
+      <div class="who reveal">
+        <p class="label">Founder &amp; Producer</p>
+        <p class="nm mincho">あかり<small>Akari — 代表 / Producer</small></p>
+      </div>
+      <div class="msg reveal mincho">
+        作詞をする私が、<em>キャラクターたちに光を当てる側</em>に回りました。AIでも、本物の魅力は宿せると信じています。<em>誰かの希望になる音楽</em>を、より多くの人へ。
+        <span class="sign serif">— Luzel Entertainment, Founder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <p class="label reveal" style="margin-bottom:18px">Follow</p>
+    <h2 class="h2 reveal serif">最初の光を、見逃さないで。</h2>
+    <p class="lead reveal">楽曲・動画はすべて無料公開。TikTokライブの投げ銭で応援できます。</p>
+    <div class="links reveal">
+      <a class="lk g" href="#">TikTok</a>
+      <a class="lk" href="#">YouTube</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fz">
+    <span>© 2026 Luzel Entertainment — Produced by あかり</span>
+    <span class="serif" style="font-size:15px;letter-spacing:.06em">光を、より多くの人へ。</span>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+    e.target.style.transitionDelay=(e.target.dataset.d||0)+'ms';
+    e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.dataset.d=(i%4)*60;io.observe(el)});
+
+  // スタッツのカウントアップ（数字が伸びる演出）
+  const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+    const el=e.target,end=+el.dataset.count,step=Math.max(1,Math.round(end/28));let n=0;
+    const tick=()=>{n=Math.min(end,n+step);el.textContent=n;if(n<end)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);cio.unobserve(el)}})},{threshold:.5});
+  document.querySelectorAll('.stats b[data-count]').forEach(el=>cio.observe(el));
+
+  // モバイルナビ開閉
+  const hd=document.querySelector('header'),mb=document.getElementById('menuBtn');
+  const setMenu=(on)=>{hd.classList.toggle('open',on);mb.setAttribute('aria-expanded',on)};
+  mb.addEventListener('click',()=>setMenu(!hd.classList.contains('open')));
+  document.querySelectorAll('.nav nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+</script>
+</body>
+</html>

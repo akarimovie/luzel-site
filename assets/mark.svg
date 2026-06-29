@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Luzel">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="0.45" stop-color="#ff9d3c"/>
+      <stop offset="1" stop-color="#b46bff"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#1a1330"/>
+      <stop offset="1" stop-color="#0a0a12"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- rounded square plate -->
+  <rect x="6" y="6" width="108" height="108" rx="26" fill="url(#core)" stroke="url(#g)" stroke-width="2.5"/>
+  <!-- monogram L + rising light ray -->
+  <g filter="url(#glow)" fill="none" stroke="url(#g)" stroke-linecap="round">
+    <!-- the L -->
+    <path d="M44 32 L44 84 L82 84" stroke-width="9"/>
+    <!-- light ray crossing the L's corner -->
+    <line x1="44" y1="84" x2="86" y2="34" stroke-width="4.5" opacity="0.95"/>
+    <!-- spark at the top of the ray -->
+    <circle cx="86" cy="34" r="4.2" fill="url(#g)" stroke="none"/>
+    <line x1="86" y1="22" x2="86" y2="28" stroke-width="2.4"/>
+    <line x1="94" y1="34" x2="100" y2="34" stroke-width="2.4"/>
+    <line x1="93" y1="27" x2="97" y2="23" stroke-width="2.4"/>
+  </g>
+</svg>
