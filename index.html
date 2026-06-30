@@ -309,6 +309,67 @@
   .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.16,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
 
+  /* ===== 動く壁紙：色のオーロラ（紫=夜楼/蒼=夜璃/桜/金がゆっくり漂う） ===== */
+  .bg-aurora{position:fixed;inset:-10%;z-index:-2;overflow:hidden;pointer-events:none;
+    filter:blur(72px) saturate(1.15)}
+  .bg-aurora .blob{position:absolute;border-radius:50%;opacity:.42;mix-blend-mode:screen;
+    will-change:transform}
+  .bg-aurora .b1{width:48vw;height:48vw;left:-6vw;top:-8vh;
+    background:radial-gradient(circle,rgba(123,91,214,.55),transparent 66%);animation:drift1 40s ease-in-out infinite}
+  .bg-aurora .b2{width:44vw;height:44vw;right:-8vw;top:14vh;
+    background:radial-gradient(circle,rgba(58,118,200,.5),transparent 66%);animation:drift2 50s ease-in-out infinite}
+  .bg-aurora .b3{width:40vw;height:40vw;left:8vw;bottom:-14vh;
+    background:radial-gradient(circle,rgba(230,150,205,.4),transparent 66%);animation:drift3 56s ease-in-out infinite}
+  .bg-aurora .b4{width:36vw;height:36vw;right:6vw;bottom:4vh;
+    background:radial-gradient(circle,rgba(208,170,85,.4),transparent 68%);animation:drift4 46s ease-in-out infinite}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vw,6vh) scale(1.18)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1.05)}50%{transform:translate(-6vw,8vh) scale(.9)}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) scale(.95)}50%{transform:translate(9vw,-7vh) scale(1.2)}}
+  @keyframes drift4{0%,100%{transform:translate(0,0) scale(1.1)}50%{transform:translate(-8vw,-5vh) scale(.95)}}
+
+  /* ===== 舞う粒子：桜の花びら＋金の塵 ===== */
+  .bg-motes{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+  .mote{position:absolute;top:-6vh;opacity:0;animation:fall linear infinite;will-change:transform}
+  .mote.petal{width:11px;height:11px;border-radius:82% 8% 82% 8%;
+    background:linear-gradient(135deg,rgba(245,200,225,.9),rgba(210,150,200,.55));
+    box-shadow:0 0 5px rgba(235,170,210,.25)}
+  .mote.dust{width:3px;height:3px;border-radius:50%;background:rgba(214,170,85,.85);
+    box-shadow:0 0 7px rgba(214,170,85,.7)}
+  @keyframes fall{
+    0%{transform:translate3d(0,0,0) rotate(0deg);opacity:0}
+    8%{opacity:.85}
+    92%{opacity:.85}
+    100%{transform:translate3d(var(--sx,4vw),112vh,0) rotate(420deg);opacity:0}}
+
+  /* ===== 文字アニメ：ワードマークの金の光沢が流れる ===== */
+  .hero h1{background-size:100% 220%}
+  @keyframes shine{0%,100%{background-position:50% 0%}50%{background-position:50% 100%}}
+
+  /* ===== 文字アニメ：ヒーロー入場（順に立ち上がる） ===== */
+  .hero-l .wrapl>*{opacity:0;transform:translateY(18px);
+    animation:rise .95s cubic-bezier(.16,.7,.2,1) forwards}
+  .hero-l .wrapl>.label{animation-delay:.05s}
+  .hero-l .wrapl>h1{animation:rise .95s cubic-bezier(.16,.7,.2,1) .18s forwards,
+    shine 7s ease-in-out 1.3s infinite}
+  .hero-l .wrapl>.jp{animation-delay:.34s}
+  .hero-l .wrapl>.catch{animation-delay:.48s}
+  .hero-l .wrapl>.scrollcue{animation-delay:.62s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ===== 文字アニメ：見出しに金の下線が引かれる ===== */
+  section:not(.cta) .h2{position:relative}
+  section:not(.cta) .h2::after{content:"";position:absolute;left:2px;bottom:-16px;height:2px;width:72px;
+    background:linear-gradient(90deg,var(--gold),transparent);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform 1s .25s cubic-bezier(.16,.7,.2,1)}
+  section:not(.cta) .h2.in::after{transform:scaleX(1)}
+
+  /* ===== 色アクセント：ユニットのカードに夜楼=紫/夜璃=蒼 ===== */
+  .members .member:nth-child(1):hover{border-color:rgba(123,91,214,.55);
+    box-shadow:0 0 0 1px rgba(123,91,214,.25),0 18px 50px -28px rgba(123,91,214,.6)}
+  .members .member:nth-child(2):hover{border-color:rgba(70,135,210,.55);
+    box-shadow:0 0 0 1px rgba(70,135,210,.25),0 18px 50px -28px rgba(70,135,210,.6)}
+
   /* スマホ最終調整：間延び・窮屈さ・はみ出しを防ぐ */
   @media(max-width:860px){section{padding:96px 0}}
   @media(max-width:520px){
@@ -321,11 +382,22 @@
   @media(prefers-reduced-motion:reduce){
     .reveal{transition:none;opacity:1;transform:none}
     .marquee .track{animation:none}
+    .bg-aurora .blob,.hero-l .wrapl>*{animation:none!important}
+    .hero-l .wrapl>*{opacity:1;transform:none}
+    .bg-motes{display:none}
     html{scroll-behavior:auto}
   }
 </style>
 </head>
 <body>
+
+<!-- 動く壁紙：色のオーロラ -->
+<div class="bg-aurora" aria-hidden="true">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <span class="blob b3"></span><span class="blob b4"></span>
+</div>
+<!-- 舞う粒子：桜＋金の塵（JSで生成） -->
+<div class="bg-motes" id="motes" aria-hidden="true"></div>
 
 <header>
   <div class="wrap nav">
@@ -577,6 +649,28 @@
     const tick=()=>{n=Math.min(end,n+step);el.textContent=n;if(n<end)requestAnimationFrame(tick)};
     requestAnimationFrame(tick);cio.unobserve(el)}})},{threshold:.5});
   document.querySelectorAll('.stats b[data-count]').forEach(el=>cio.observe(el));
+
+  // 舞う粒子（桜の花びら＋金の塵）を生成。動きを抑えたい設定なら出さない
+  (function(){
+    const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce) return;
+    const box=document.getElementById('motes'); if(!box) return;
+    const N=innerWidth<640?12:22;
+    const rnd=(a,b)=>a+Math.random()*(b-a);
+    for(let i=0;i<N;i++){
+      const m=document.createElement('span');
+      const petal=Math.random()<0.5;
+      m.className='mote '+(petal?'petal':'dust');
+      m.style.left=rnd(0,100)+'vw';
+      const dur=petal?rnd(14,26):rnd(10,20);
+      m.style.animationDuration=dur+'s';
+      m.style.animationDelay=(-rnd(0,dur))+'s';
+      m.style.setProperty('--sx',rnd(-8,8)+'vw');
+      if(petal){const s=rnd(8,14);m.style.width=s+'px';m.style.height=s+'px';}
+      else{const s=rnd(2,4);m.style.width=s+'px';m.style.height=s+'px';}
+      box.appendChild(m);
+    }
+  })();
 
   // モバイルナビ開閉
   const hd=document.querySelector('header'),mb=document.getElementById('menuBtn');
