@@ -21,7 +21,13 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;text-size-adjust:100%;-webkit-text-size-adjust:100%}
-  body{background:var(--bg);color:var(--ink);
+  body{color:var(--ink);
+    background:
+      radial-gradient(128% 86% at 50% -14%, rgba(208,170,85,.085), transparent 58%),
+      radial-gradient(92% 72% at 6% 110%, rgba(84,68,150,.07), transparent 55%),
+      radial-gradient(78% 60% at 102% 46%, rgba(38,58,92,.055), transparent 60%),
+      var(--bg);
+    background-attachment:fixed;
     font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.9;
     font-feature-settings:"palt" 1;font-optical-sizing:auto;
     text-rendering:optimizeLegibility;
@@ -32,8 +38,11 @@
   h1,h2,h3,h4,.h2,.quote,.lead,.catch{text-wrap:balance}
   p{text-wrap:pretty}
   /* subtle film grain to kill flat-gradient AI feel */
-  body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
+  body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  /* cinematic vignette — darkens far edges only, center untouched so text stays crisp */
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(128% 96% at 50% 40%, transparent 60%, rgba(0,0,0,.5))}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
@@ -84,7 +93,11 @@
   .hero-l .wrapl{padding-right:48px}
   .hero .label{margin-bottom:26px}
   .hero h1{font-family:"Cormorant Garamond",serif;font-weight:600;
-    font-size:clamp(66px,11vw,150px);line-height:.9;letter-spacing:.015em}
+    font-size:clamp(66px,11vw,150px);line-height:.9;letter-spacing:.015em;
+    background:linear-gradient(176deg,#f7f2e9 34%,#e3c479 88%,#caa450 118%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    padding-bottom:.04em}
   .hero .jp{font-family:"Shippori Mincho",serif;font-weight:600;
     font-size:clamp(21px,3.4vw,31px);margin-top:26px;line-height:1.75;letter-spacing:.04em}
   .hero .jp em{font-style:normal;color:var(--gold)}
@@ -338,7 +351,7 @@
       <p class="label">Luzel Entertainment</p>
       <h1>Luzel</h1>
       <p class="jp mincho">光を、<em>より多くの人へ。</em></p>
-      <p class="catch">AIで制作しながら、誰よりも魅力的なキャラクターに、個性と声と人格を。踊り、歌い、語る——次世代のアイドル総合レーベル。</p>
+      <p class="catch">AIで生み出しながら、誰より魅力的なキャラクターへ。声と個性と、人格を宿して——踊り、歌い、語る、次世代のアイドル総合レーベル。</p>
       <a href="#about" class="scrollcue">Scroll to explore</a>
     </div>
   </div>
@@ -380,9 +393,9 @@
     <div class="about">
       <p class="quote reveal mincho">「Luzel」の名に込めたのは、ただひとつ。<em>luz</em> ——スペイン語・ポルトガル語で「<em>光</em>」。その光を、より多くの人へ。</p>
       <div class="body reveal">
-        <p>不特定多数の人に楽しんでもらい、希望を届ける。あかりの書いた歌詞を、色んな人に。AIで制作しても、他の誰よりも魅力的なキャラクターをつくる。</p>
-        <p>TikTokライブを起点に、ファンとその場で繋がり、最終的には仮想空間でのライブへ。営利を目的とせず、楽曲も動画も無料で公開します。</p>
-        <p>最初からクリーンな状態でつくること。それを、何より優先します。</p>
+        <p>より多くの人に楽しんでもらい、希望を届けたい。あかりが綴った歌詞を、たくさんの人へ。AIで生み出しても、他の誰より魅力的なキャラクターをつくる。</p>
+        <p>TikTokライブを起点に、ファンとその場で繋がり、やがては仮想空間でのライブへ。営利を目的とせず、楽曲も映像も、すべて無料で公開します。</p>
+        <p>最初から、クリーンであること。それを、何より優先します。</p>
       </div>
     </div>
     <div class="principles">
@@ -525,7 +538,7 @@
         <p class="nm mincho">あかり<small>Akari — 代表 / Producer</small></p>
       </div>
       <div class="msg reveal mincho">
-        作詞をする私が、<em>キャラクターたちに光を当てる側</em>に回りました。AIでも、本物の魅力は宿せると信じています。<em>誰かの希望になる音楽</em>を、より多くの人へ。
+        作詞をしてきた私が、いま<em>キャラクターたちに光を当てる側</em>へ。AIでも、本物の魅力は宿せると信じています。<em>誰かの希望になる音楽</em>を、より多くの人へ届けたい。
         <span class="sign serif">— Luzel Entertainment, Founder</span>
       </div>
     </div>
@@ -537,7 +550,7 @@
   <div class="wrap">
     <p class="label reveal" style="margin-bottom:18px">Follow</p>
     <h2 class="h2 reveal serif">最初の光を、見逃さないで。</h2>
-    <p class="lead reveal">楽曲・動画はすべて無料公開。TikTokライブの投げ銭で応援できます。</p>
+    <p class="lead reveal">楽曲も映像も、すべて無料で公開。TikTokライブの投げ銭で応援できます。</p>
     <div class="links reveal">
       <a class="lk g" href="#">TikTok</a>
       <a class="lk" href="#">YouTube</a>
