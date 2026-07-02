@@ -251,6 +251,38 @@
   @media(max-width:860px){.solos{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:520px){.solos{grid-template-columns:repeat(2,1fr)}}
 
+  /* ---------- virtual live showcase ---------- */
+  .liveshow{display:grid;grid-template-columns:1.6fr 1fr;gap:5px;margin-top:30px}
+  .liveshow .shot{position:relative;overflow:hidden;border:1px solid var(--line2);background:#000}
+  .liveshow .shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,.7,.2,1);
+    filter:contrast(1.04) saturate(1.05)}
+  .liveshow .shot:hover img{transform:scale(1.03)}
+  .liveshow .main{grid-row:span 2;aspect-ratio:16/10}
+  .liveshow .sub{aspect-ratio:16/9}
+  .liveshow .shot::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg,rgba(11,11,15,.55),transparent 42%)}
+  .liveshow .shot .sc{position:absolute;left:18px;bottom:14px;z-index:2;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .liveshow .shot .sc b{color:var(--ink);font-weight:500}
+  @media(max-width:860px){.liveshow{grid-template-columns:1fr}
+    .liveshow .main{grid-row:auto}}
+  .livenote{display:flex;align-items:baseline;gap:16px;margin-top:22px;flex-wrap:wrap}
+  .livenote .tag{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);
+    border:1px solid rgba(208,170,85,.42);padding:5px 12px;white-space:nowrap}
+  .livenote p{color:var(--muted);font-size:14.5px;line-height:1.9;max-width:640px}
+
+  /* ---------- news ---------- */
+  .newslist{border-top:1px solid var(--line);margin-top:30px}
+  .news{display:grid;grid-template-columns:150px 110px 1fr;gap:20px;align-items:baseline;
+    padding:24px 6px;border-bottom:1px solid var(--line2);transition:.35s}
+  .news:hover{background:rgba(241,236,226,.025);padding-left:16px}
+  .news time{font-family:"Cormorant Garamond",serif;font-size:17px;letter-spacing:.06em;color:var(--gold-soft)}
+  .news .cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+    border:1px solid var(--line2);padding:4px 9px;text-align:center;white-space:nowrap}
+  .news .tt{font-size:15.5px;line-height:1.85;color:#d4cdbf}
+  @media(max-width:720px){.news{grid-template-columns:1fr;gap:6px;row-gap:8px}
+    .news .cat{justify-self:start}}
+
   /* ---------- cta ---------- */
   .cta{text-align:center;border-top:1px solid var(--line)}
   .cta .h2{margin:0 auto 8px}
@@ -428,8 +460,10 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#unit">Unit</a>
+      <a href="#live">Live</a>
       <a href="#groups">Groups</a>
       <a href="#roster">Artists</a>
+      <a href="#news">News</a>
       <a href="#contact">Contact</a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="メニュー" aria-expanded="false">
@@ -507,7 +541,7 @@
     <h2 class="h2 reveal" style="margin-bottom:10px">What we do</h2>
     <p class="lead reveal">キャラクターを“制作する”だけでなく、ライブ・楽曲・映像・ビジュアルまで一気通貫で届ける、AIネイティブの音楽事務所。</p>
     <div class="services">
-      <a class="svc reveal" href="#unit">
+      <a class="svc reveal" href="#live">
         <div class="n serif">01</div>
         <p class="en serif">Virtual Live</p>
         <h4>バーチャルライブ</h4>
@@ -575,10 +609,28 @@
   </div>
 </section>
 
+<!-- VIRTUAL LIVE (開発中の実機ショット) -->
+<section id="live">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">04</span><p class="label">Virtual Live — 開発中</p></div>
+    <h2 class="h2 reveal" style="margin-bottom:10px">The Stage</h2>
+    <p class="lead reveal">言葉ではなく、実物を。いま開発中のバーチャルライブ会場——1stシングル「狂針」のためだけに建てた、時計仕掛けのノワール空間。</p>
+    <div class="liveshow">
+      <div class="shot main reveal"><img src="assets/live_chorus.jpg" alt="T×win HeArts バーチャルライブ — 狂針ノワール会場のステージに立つ夜楼と夜璃" loading="lazy"><div class="sc"><b>狂針</b> — Chorus</div></div>
+      <div class="shot sub reveal"><img src="assets/live_lastchorus.jpg" alt="夜楼のクローズアップ — 曲に同期した表情システム" loading="lazy"><div class="sc"><b>夜楼</b> — Close-up</div></div>
+      <div class="shot sub reveal"><img src="assets/live_finale.jpg" alt="3万人規模の観客席とペンライトの海 — 会場全景" loading="lazy"><div class="sc"><b>Arena</b> — 30,000</div></div>
+    </div>
+    <div class="livenote reveal">
+      <span class="tag">In development</span>
+      <p>リアルタイム3Dで、曲の一秒一秒に照明・カメラ・表情が同期する。狂った大時計、黒鏡の反射床、3万人のペンライトの海。すべて商用利用可能な素材と自社制作だけで。</p>
+    </div>
+  </div>
+</section>
+
 <!-- GROUPS (並び画) -->
 <section id="groups">
   <div class="wrap">
-    <div class="head reveal"><span class="idx">04</span><p class="label">Groups — 並び画</p></div>
+    <div class="head reveal"><span class="idx">05</span><p class="label">Groups — 並び画</p></div>
     <h2 class="h2 reveal" style="margin-bottom:8px">Groups</h2>
     <div class="groups">
       <a class="gband soon reveal"><div class="gcap"><span class="gtag">Coming soon</span><p class="nm mincho">Rabbit Flower <small>女性・3</small></p><p class="cc">絶対君主 — 王者・気高さ</p></div></a>
@@ -596,7 +648,7 @@
 <!-- ROSTER -->
 <section class="roster" id="roster">
   <div class="wrap">
-    <div class="head reveal"><span class="idx">05</span><p class="label">Full roster — 41 artists</p></div>
+    <div class="head reveal"><span class="idx">06</span><p class="label">Full roster — 41 artists</p></div>
     <h2 class="h2 reveal" style="margin-bottom:34px">Roster</h2>
     <div class="rtable">
       <div class="row reveal"><span class="idx">U1</span><span class="nm mincho">T×win HeArts <small>男性・2</small></span><span class="cc">魅惑する双子</span><span class="st live">Phase 1</span></div>
@@ -611,7 +663,7 @@
       <div class="row reveal"><span class="idx">G9</span><span class="nm">EtiNceler <small>男性・5</small></span><span class="cc">近未来ネオン（唯一のリアル人間）</span><span class="st">別軸</span></div>
     </div>
 
-    <div class="head reveal" style="margin:74px 0 8px"><span class="idx">06</span><p class="label">Solo artists</p></div>
+    <div class="head reveal" style="margin:74px 0 8px"><span class="idx">07</span><p class="label">Solo artists</p></div>
     <div class="solos">
       <a class="solo reveal"><img src="assets/neasobi.png" alt="ネ遊"><div class="cap"><p class="ro">Acoustic</p><p class="nm mincho">ネ遊</p></div></a>
       <a class="solo reveal"><img src="assets/gen.png" alt="幻"><div class="cap"><p class="ro">Vocalist</p><p class="nm mincho">幻</p></div></a>
@@ -622,10 +674,24 @@
   </div>
 </section>
 
+<!-- NEWS -->
+<section id="news">
+  <div class="wrap">
+    <div class="head reveal"><span class="idx">08</span><p class="label">News — 最新情報</p></div>
+    <h2 class="h2 reveal" style="margin-bottom:8px">News</h2>
+    <div class="newslist">
+      <div class="news reveal"><time>2026.07.02</time><span class="cat">Live</span><p class="tt">バーチャルライブ会場を大幅アップデート。反射床の質感・金継ぎの意匠・曲に完全同期した43ショットのカメラ演出を追加</p></div>
+      <div class="news reveal"><time>2026.06.29</time><span class="cat">Info</span><p class="tt">Luzel Entertainment 公式サイトを公開しました</p></div>
+      <div class="news reveal"><time>2026.06.20</time><span class="cat">Artist</span><p class="tt">夜楼・夜璃の3Dモデルが完成。二人がバーチャルステージに立ちました</p></div>
+      <div class="news reveal"><time>2026.06.18</time><span class="cat">Music</span><p class="tt">T×win HeArts 1stシングル「狂針（トキ）」制作中 — 和×EDM</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- FOUNDER / 代表 -->
 <section id="founder">
   <div class="wrap">
-    <div class="head reveal"><span class="idx">07</span><p class="label">Founder — 代表</p></div>
+    <div class="head reveal"><span class="idx">09</span><p class="label">Founder — 代表</p></div>
     <div class="founder">
       <div class="who reveal">
         <p class="label">Founder &amp; Producer</p>
