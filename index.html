@@ -20,6 +20,10 @@
 <meta name="twitter:image" content="https://akarimovie.github.io/luzel-site/assets/og.png">
 <meta name="theme-color" content="#0b0b0f">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Luzel">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -257,6 +261,14 @@
   .lk:hover{background:var(--ink);color:var(--bg)}
   .lk.g{border-color:var(--gold);color:var(--gold)}
   .lk.g:hover{background:var(--gold);color:var(--bg)}
+  /* アカウント未作成のSNSは「準備中」。ダミーリンクで飛ばさない */
+  .lk.soon{cursor:default;color:var(--muted);border-color:var(--line);display:inline-flex;align-items:center;gap:9px}
+  .lk.soon.g{color:var(--gold)}
+  .lk.soon:hover{background:transparent}
+  .lk.soon.g:hover{background:transparent;color:var(--gold)}
+  .lk.soon:not(.g):hover{color:var(--muted)}
+  .lk.soon em{font-style:normal;font-size:9px;letter-spacing:.14em;color:var(--faint);
+    border:1px solid var(--line2);padding:3px 7px;border-radius:2px}
 
   footer{border-top:1px solid var(--line);padding:42px 0}
   .fz{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center;
@@ -634,8 +646,8 @@
     <h2 class="h2 reveal serif">最初の光を、見逃さないで。</h2>
     <p class="lead reveal">楽曲も映像も、すべて無料で公開。TikTokライブの投げ銭で応援できます。</p>
     <div class="links reveal">
-      <a class="lk g" href="#">TikTok</a>
-      <a class="lk" href="#">YouTube</a>
+      <span class="lk g soon" role="link" aria-disabled="true">TikTok<em>準備中</em></span>
+      <span class="lk soon" role="link" aria-disabled="true">YouTube<em>準備中</em></span>
     </div>
   </div>
 </section>
